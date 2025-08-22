@@ -49,7 +49,7 @@ async function main() {
         console.error('Server connected. Waiting for requests...');
     }
     catch (error) {
-        console.error('Error starting server:', error);
+        console.error('Error starting serverz:', error);
         process.exit(1);
     }
 }
