@@ -1,5 +1,5 @@
 // Create a map to store all registered tools
-const toolMap = new Map();
+const toolMap = new Map(); // TODO: global-scoped map
 /**
  * Register a tool with the system
  * @param tool The tool instance to register
