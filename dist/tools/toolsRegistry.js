@@ -22,25 +22,28 @@ import { GetSchemasTool } from './objects/getSchemaTool.js';
 import { GetHubspotLinkTool } from './links/getHubspotLinkTool.js';
 import { WorkflowsListTool } from './workflows/listWorkflowsTool.js';
 import { GetWorkflowTool } from './workflows/getWorkflowTool.js';
-// Register all tools
-registerTool(new UserCredentialsTool());
-registerTool(new ObjectListTool());
-registerTool(new ObjectSearchTool());
-registerTool(new ObjectAssociationTool());
-registerTool(new AssociationSchemaDefinitionTool());
-registerTool(new AssociationsListTool());
-registerTool(new BatchCreateObjectsTool());
-registerTool(new BatchUpdateObjectsTool());
-registerTool(new BatchReadObjectsTool());
-registerTool(new PropertiesListTool());
-registerTool(new GetPropertyTool());
-registerTool(new CreatePropertyTool());
-registerTool(new UpdatePropertyTool());
-registerTool(new CreateEngagementTool());
-registerTool(new GetEngagementTool());
-registerTool(new UpdateEngagementTool());
-registerTool(new FeedbackLinkTool());
-registerTool(new GetSchemasTool());
-registerTool(new GetHubspotLinkTool());
-registerTool(new WorkflowsListTool());
-registerTool(new GetWorkflowTool());
+
+export function registerAllTools(accessToken) {
+    // Register all tools
+    registerTool(new UserCredentialsTool(accessToken));
+    registerTool(new ObjectListTool());
+    registerTool(new ObjectSearchTool());
+    registerTool(new ObjectAssociationTool());
+    registerTool(new AssociationSchemaDefinitionTool());
+    registerTool(new AssociationsListTool());
+    registerTool(new BatchCreateObjectsTool());
+    registerTool(new BatchUpdateObjectsTool());
+    registerTool(new BatchReadObjectsTool());
+    registerTool(new PropertiesListTool());
+    registerTool(new GetPropertyTool());
+    registerTool(new CreatePropertyTool());
+    registerTool(new UpdatePropertyTool());
+    registerTool(new CreateEngagementTool());
+    registerTool(new GetEngagementTool());
+    registerTool(new UpdateEngagementTool());
+    registerTool(new FeedbackLinkTool());
+    registerTool(new GetSchemasTool());
+    registerTool(new GetHubspotLinkTool());
+    registerTool(new WorkflowsListTool());
+    registerTool(new GetWorkflowTool());
+}

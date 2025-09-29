@@ -6,7 +6,7 @@ import { getPrompts, getPromptMessages } from './prompts/index.js';
 import { getTools, handleToolCall } from './tools/index.js';
 
 import './prompts/promptsRegistry.js';
-import './tools/toolsRegistry.js';
+import { registerAllTools } from './tools/toolsRegistry.js';
 
 const server = new Server({
     name: APP_NAME,
@@ -40,24 +40,29 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
     return getPromptMessages(name, args);
 });
-async function main() {
-    try {
-        console.error('Starting HubSpot MCP Server...');
-        // Connect to stdio transport
-        const transport = new StdioServerTransport();
-        await server.connect(transport);
-        console.error('Server connected. Waiting for requests...');
-    }
-    catch (error) {
-        console.error('Error starting server:', error);
-        process.exit(1);
-    }
+// async function main() {
+//     try {
+//         console.error('Starting HubSpot MCP Server...');
+//         // Connect to stdio transport
+//         const transport = new StdioServerTransport();
+//         await server.connect(transport);
+//         console.error('Server connected. Waiting for requests...');
+//     }
+//     catch (error) {
+//         console.error('Error starting server:', error);
+//         process.exit(1);
+//     }
+// }
+// // Handle graceful shutdown
+// process.on('SIGINT', async () => {
+//     console.error('Shutting down server...');
+//     await server.close();
+//     process.exit(0);
+// });
+// // Start the server
+// main();
+
+export function createHubspotMCPServer(accessToken): Server {
+    registerAllTools(accessToken)
+    return server
 }
-// Handle graceful shutdown
-process.on('SIGINT', async () => {
-    console.error('Shutting down server...');
-    await server.close();
-    process.exit(0);
-});
-// Start the server
-main();

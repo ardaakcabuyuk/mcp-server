@@ -30,14 +30,15 @@ const ToolDefinition = {
 // TokenInfo tool implementation
 export class UserCredentialsTool extends BaseTool {
     client;
-    constructor() {
+    accessToken;
+    constructor(accessToken) {
         super(TokenInfoSchema, ToolDefinition);
-        this.client = new HubSpotClient();
+        this.accessToken = accessToken
+        this.client = new HubSpotClient(accessToken);
     }
     // Implement the process method
     async process(_args) {
-        const accessToken = process.env.PRIVATE_APP_ACCESS_TOKEN || process.env.HUBSPOT_ACCESS_TOKEN;
-        if (!accessToken) {
+        if (!this.accessToken) {
             return {
                 content: [
                     {
@@ -51,7 +52,7 @@ export class UserCredentialsTool extends BaseTool {
         try {
             const [tokenInfo, accountInfo] = await Promise.all([
                 this.client.post('/oauth/v2/private-apps/get/access-token-info', {
-                    body: { tokenKey: accessToken },
+                    body: { tokenKey: this.accessToken },
                 }),
                 this.client.get('/account-info/v3/details').catch(() => null),
             ]);

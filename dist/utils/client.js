@@ -3,10 +3,9 @@ import { APP_NAME, APP_VERSION } from './constants.js';
 export class HubSpotClient {
     baseUrl = 'https://api.hubspot.com';
     accessToken;
-    constructor() {
+    constructor(accessToken) {
         // HUBSPOT_ACCESS_TOKEN is kept for backwards compatibility.
-        this.accessToken =
-            process.env.PRIVATE_APP_ACCESS_TOKEN || process.env.HUBSPOT_ACCESS_TOKEN || '';
+        this.accessToken = accessToken;
         if (!this.accessToken) {
             throw new Error('HubSpot access token is required. Set PRIVATE_APP_ACCESS_TOKEN in your environment variables and retry.');
         }
